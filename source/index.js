@@ -24,7 +24,7 @@ const irecord = function (obj) {
     instance.emit('change', {value, previous});
   };
 
-  history.push(immutable.Map(obj));
+  history.push(immutable.fromJS(obj));
 
   stamp =
     stampit.convertConstructor(events.EventEmitter)
@@ -35,6 +35,9 @@ const irecord = function (obj) {
       set (key, val) {
         update(state().setIn(dp(key), val));
         return this;
+      },
+      updateIn (key, fn) {
+        return update(state().updateIn(dp(key),fn));
       },
       remove (key) {
         update(state().removeIn(dp(key)));
