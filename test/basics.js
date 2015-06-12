@@ -23,17 +23,17 @@ test('immutable', (assert) => {
 test('deep immutability', (assert) => {
   const original = {
     a: 'a',
-    b: ['thing','otherThing']
+    b: ['thing', 'otherThing']
   };
   const record = irecord(original);
 
-  record.updateIn('b', function(arr){
-    return arr.push("thirdThing");
+  record.updateIn('b', function (arr){
+    return arr.push('thirdThing');
   });
 
   assert.deepEqual(original, {
     a: 'a',
-    b: ['thing','otherThing']
+    b: ['thing', 'otherThing']
   }, 'should not mutate original deep array');
 
   assert.end();
@@ -106,12 +106,12 @@ test('.set() & .get() deep', assert => {
 test('.updateIn() deep', (assert) => {
   const original = {
     a: 'a',
-    b: ['thing','otherThing']
+    b: ['thing', 'otherThing']
   };
   const record = irecord(original);
 
-  record.updateIn('b', function(arr){
-    return arr.push("thirdThing");
+  record.updateIn('b', function (arr){
+    return arr.push('thirdThing');
   });
 
   assert.deepEqual(record.get('b.2'), 'thirdThing',

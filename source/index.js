@@ -37,7 +37,7 @@ const irecord = function (obj) {
         return this;
       },
       updateIn (key, fn) {
-        return update(state().updateIn(dp(key),fn));
+        return update(state().updateIn(dp(key), fn));
       },
       remove (key) {
         update(state().removeIn(dp(key)));

@@ -46,7 +46,7 @@ test('.filter', (assert) => {
     return value.toJS().c === 'again';
   }).subscribe(({ value }) => {
     assert.equal(value.toJS().c, 'again',
-      `should filter out changes that don't match the predicate`);
+      "should filter out changes that don't match the predicate");
   });
 
   record.set('a', 'changed');
