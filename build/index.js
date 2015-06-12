@@ -45,7 +45,7 @@ var irecord = function irecord(obj) {
     instance.emit('change', { value: value, previous: previous });
   };
 
-  history.push(_immutable2['default'].Map(obj));
+  history.push(_immutable2['default'].fromJS(obj));
 
   stamp = _stampit2['default'].convertConstructor(_events2['default'].EventEmitter).methods({
     get: function get(key) {
@@ -54,6 +54,9 @@ var irecord = function irecord(obj) {
     set: function set(key, val) {
       update(state().setIn((0, _dpath2['default'])(key), val));
       return this;
+    },
+    updateIn: function updateIn(key, fn) {
+      return update(state().updateIn((0, _dpath2['default'])(key), fn));
     },
     remove: function remove(key) {
       update(state().removeIn((0, _dpath2['default'])(key)));

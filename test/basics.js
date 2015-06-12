@@ -20,6 +20,25 @@ test('immutable', (assert) => {
   assert.end();
 });
 
+test('deep immutability', (assert) => {
+  const original = {
+    a: 'a',
+    b: ['thing', 'otherThing']
+  };
+  const record = irecord(original);
+
+  record.updateIn('b', function (arr){
+    return arr.push('thirdThing');
+  });
+
+  assert.deepEqual(original, {
+    a: 'a',
+    b: ['thing', 'otherThing']
+  }, 'should not mutate original deep array');
+
+  assert.end();
+});
+
 
 test('change events', (assert) => {
   assert.plan(3);
@@ -79,7 +98,24 @@ test('.set() & .get() deep', assert => {
   record.set('a.b.c', 'val');
 
   assert.deepEqual(record.get('a.b.c'), 'val',
-    `passing 'a.b.c' as the key should set deep in the record.`);
+    'passing "a.b.c" as the key should set deep in the record.');
+
+  assert.end();
+});
+
+test('.updateIn() deep', (assert) => {
+  const original = {
+    a: 'a',
+    b: ['thing', 'otherThing']
+  };
+  const record = irecord(original);
+
+  record.updateIn('b', function (arr){
+    return arr.push('thirdThing');
+  });
+
+  assert.deepEqual(record.get('b.2'), 'thirdThing',
+   'passing a transform function to a deep array key should set deep record');
 
   assert.end();
 });

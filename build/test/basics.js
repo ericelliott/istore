@@ -27,6 +27,25 @@ var _indexJs2 = _interopRequireDefault(_indexJs);
   assert.end();
 });
 
+(0, _tape2['default'])('deep immutability', function (assert) {
+  var original = {
+    a: 'a',
+    b: ['thing', 'otherThing']
+  };
+  var record = (0, _indexJs2['default'])(original);
+
+  record.updateIn('b', function (arr) {
+    return arr.push('thirdThing');
+  });
+
+  assert.deepEqual(original, {
+    a: 'a',
+    b: ['thing', 'otherThing']
+  }, 'should not mutate original deep array');
+
+  assert.end();
+});
+
 (0, _tape2['default'])('change events', function (assert) {
   assert.plan(3);
 
@@ -82,7 +101,23 @@ var _indexJs2 = _interopRequireDefault(_indexJs);
   var record = (0, _indexJs2['default'])({});
   record.set('a.b.c', 'val');
 
-  assert.deepEqual(record.get('a.b.c'), 'val', 'passing \'a.b.c\' as the key should set deep in the record.');
+  assert.deepEqual(record.get('a.b.c'), 'val', 'passing "a.b.c" as the key should set deep in the record.');
+
+  assert.end();
+});
+
+(0, _tape2['default'])('.updateIn() deep', function (assert) {
+  var original = {
+    a: 'a',
+    b: ['thing', 'otherThing']
+  };
+  var record = (0, _indexJs2['default'])(original);
+
+  record.updateIn('b', function (arr) {
+    return arr.push('thirdThing');
+  });
+
+  assert.deepEqual(record.get('b.2'), 'thirdThing', 'passing a transform function to a deep array key should set deep record');
 
   assert.end();
 });
